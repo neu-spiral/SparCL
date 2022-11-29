@@ -174,47 +174,6 @@ if not os.path.exists(args.save_model):
 kwargs = {'num_workers': 1, 'pin_memory': True} if args.cuda else {}
 
 
-
-# Load the appropriate train and test datasets
-# zifeng: where is remove_dataset used?
-# if args.dataset == 'cifar10':
-#     num_classes = 10
-#     full_dataset = datasets.CIFAR10(
-#         root='./data/CIFAR10',
-#         train=True,
-#         transform=train_transform,
-#         download=True)
-#     train_dataset = datasets.CIFAR10(
-#         root='./data/CIFAR10',
-#         train=True,
-#         transform=train_transform,
-#         download=True)
-#     remove_dataset = datasets.CIFAR10(
-#         root='./data/CIFAR10',
-#         train=True,
-#         transform=train_transform,
-#         download=True)    
-
-# else:
-#     num_classes = 100
-#     full_dataset = datasets.CIFAR100(
-#         root='./data.cifar100',
-#         train=True,
-#         transform=train_transform_cf100,
-#         download=True)
-#     train_dataset = datasets.CIFAR100(
-#         root='./data.cifar100',
-#         train=True,
-#         transform=train_transform_cf100,
-#         download=True)
-#     remove_dataset = datasets.CIFAR100(
-#         root='./data.cifar100',
-#         train=True,
-#         transform=train_transform_cf100,
-#         download=True)    
-
-
-
 class CrossEntropyLossMaybeSmooth(nn.CrossEntropyLoss):
     ''' Calculate cross entropy loss, apply label smoothing if needed. '''
 
@@ -768,35 +727,6 @@ def get_hms(seconds):
 
 
 def main():
-    # zifeng: What does this part mean? Do we need this?
-    # if args.sorting_file == None:
-    #     train_indx = np.array(range(len(full_dataset.targets)))
-    # else:
-    #     try:
-    #         with open(
-    #                 os.path.join(args.input_dir, args.sorting_file) + '.pkl',
-    #                 'rb') as fin:
-    #             ordered_indx = pickle.load(fin)['indices']
-    #     except IOError:
-    #         with open(os.path.join(args.input_dir, args.sorting_file),
-    #                   'rb') as fin:
-    #             ordered_indx = pickle.load(fin)['indices']
-
-    #     # Get the indices to remove from training
-    #     elements_to_remove = np.array(ordered_indx)[-1:-1 + args.remove_n]
-    #     print('elements_to_remove', len(elements_to_remove))
-
-    #     # Remove the corresponding elements
-    #     train_indx = np.setdiff1d(range(len(train_dataset.targets)), elements_to_remove)
-    #     print('train_indx', len(train_indx))
-
-    # # Reassign train data and labels and save the removed data
-    # train_dataset.data = full_dataset.data[train_indx, :, :, :]
-    # print(train_dataset.data.shape)  # (35000, 32, 32, 3)
-
-    # train_dataset.targets = np.array(full_dataset.targets)[train_indx].tolist()
-    # print('len(train_dataset.targets)', len(train_dataset.targets))
-
     if args.cuda:
         if args.arch == "vgg":
             if args.depth == 19:
@@ -891,7 +821,7 @@ def main():
     # example_stats_train = {}  # change name because fogetting function also have example_stats
 
     for t in range(dataset.N_TASKS):
-        # zifeng : do it per task
+        # do it per task
         example_stats_train = {}  
 
         optimizer_init_lr = args.warmup_lr if args.warmup else args.lr
