@@ -751,7 +751,6 @@ def main():
             model = torch.nn.DataParallel(model)
         model.cuda()
 
-    # zifeng: note the CE here set reduce = False!
     criterion = nn.CrossEntropyLoss().cuda()
     criterion.__init__(reduce=False)
 
@@ -835,7 +834,7 @@ def main():
 
         scheduler = None
 
-        # zifeng: initialize training dataset and full dataset here
+        # initialize training dataset and full dataset here
         _, _, train_dataset, _ = dataset.get_data_loaders(return_dataset=True)
         full_dataset = copy.deepcopy(train_dataset)
 
