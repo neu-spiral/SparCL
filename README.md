@@ -1,7 +1,6 @@
 # Official Implementation of SparCL @ NeurIPS 22
 SparCL: Sparse Continual Learning on the Edge @ NeurIPS 22
 
-Code will be released soon.
 
 ## Cite
 ```
