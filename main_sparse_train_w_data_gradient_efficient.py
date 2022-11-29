@@ -279,7 +279,6 @@ def train(model, trainset, criterion, scheduler, optimizer, epoch, t, buffer, da
         # Get trainset indices for batch
         batch_inds = trainset_permutation_inds[batch_start_ind:
                                                batch_start_ind + batch_size]
-        # Zifeng: Please check this!
         if len(batch_inds) < args.batch_size:
             continue
         # Get batch inputs and targets, transform them appropriately
