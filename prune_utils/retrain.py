@@ -19,7 +19,7 @@ def prune_parse_arguments(parser):
                         help="mask update initialization method")
     parser.add_argument('--sp-mask-update-freq', type=int, default=5,
                         help="how many epochs to update sparse mask")
-    parser.add_argument('--sp-lmd', type=float, default=0.0,
+    parser.add_argument('--sp-lmd', type=float, default=0.5,
                         help="importance coefficient lambda")
     parser.add_argument('--retrain-mask-sparsity', type=float, default=-1.0,
                     help="sparsity of a retrain mask, used when retrain-mask-pattern is set to NOT being 'weight' ")

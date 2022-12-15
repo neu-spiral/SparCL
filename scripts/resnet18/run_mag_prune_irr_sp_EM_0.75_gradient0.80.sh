@@ -14,8 +14,7 @@ SPARSITY_TYPE="irregular"
 DATASET="seq-cifar10"
 
 GLOBAL_BATCH_SIZE="32"
-MASK_UPDATE_DECAY_EPOCH="25-40"
-# MASK_UPDATE_DECAY_EPOCH="90-120"
+MASK_UPDATE_DECAY_EPOCH="5-45"
 SP_MASK_UPDATE_FREQ="5"
 
 REMOVE_N=3000
@@ -23,18 +22,19 @@ RM_EPOCH=20
 
 SAVE_FOLDER="checkpoints/resnet18/paper/gradient_effi/mutate_irr/${DATASET}/buffer_${BUFFER_SIZE}/"
 
-cd /home/zhan.zhe/CL_sparse_training
+PATH_TO_SPARCL=/home/zhan.zhe/SparCL # change to your own path
+cd $PATH_TO_SPARCL
 
 mkdir -p ${SAVE_FOLDER}
 
 GPU_ID=0
-SEED=250
+SEED=888
 
 GRADIENT=0.80
 # ------- for 75% overall sparsity ----------
 # ------- check retrain.py for more information ----------
-LOWER_BOUND="0.77-0.76-0.75" #
-UPPER_BOUND="0.75-0.75-0.75"
+LOWER_BOUND="0.75-0.76-0.75"
+UPPER_BOUND="0.74-0.75-0.75"
 
 CONFIG_FILE="./profiles/resnet18_cifar/irr/resnet18_0.75.yaml"
 REMARK="irr_0.75_mut"

@@ -13,9 +13,9 @@ import copy
 
 import time
 
-from models.resnet32_cifar10_grasp import resnet32
-from models.vgg_grasp import vgg19, vgg16
-from models.resnet20_cifar import resnet20
+# from models.resnet32_cifar10_grasp import resnet32
+# from models.vgg_grasp import vgg19, vgg16
+# from models.resnet20_cifar import resnet20
 from models.resnet18_cifar import resnet18
 
 from torch.optim.lr_scheduler import _LRScheduler
@@ -455,7 +455,8 @@ def train(model, trainset, criterion, scheduler, optimizer, epoch, t, buffer, da
             prune_apply_masks_on_grads()
         optimizer.step()
 
-        optimizer.zero_grad()
+        if batch_idx != (len(trainset) // batch_size) - 1:
+            optimizer.zero_grad()
         prune_apply_masks()
 
         batch_time.update(time.time() - end)
@@ -874,7 +875,8 @@ def main():
 
         for epoch in range(int(args.epochs/dataset.N_TASKS)):
             prune_update(epoch)
-
+            optimizer.zero_grad()
+            
             #########remove data at 25 epoch, update dataset ######
             if epoch > 0 and epoch % args.sp_mask_update_freq == 0 and epoch <= args.remove_data_epoch:
                 if args.sorting_file == None:
