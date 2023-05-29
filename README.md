@@ -34,10 +34,9 @@ bash ./scripts/resnet18/run_mag_prune_irr_sp_EM_0.75_gradient0.80.sh
 
 ## Cite
 ```
-@article{wang2022sparcl,
+@inproceedings{wangsparcl,
   title={SparCL: Sparse Continual Learning on the Edge},
   author={Wang, Zifeng and Zhan, Zheng and Gong, Yifan and Yuan, Geng and Niu, Wei and Jian, Tong and Ren, Bin and Ioannidis, Stratis and Wang, Yanzhi and Dy, Jennifer},
-  journal={NeurIPS},
-  year={2022}
+  booktitle={Advances in Neural Information Processing Systems}
 }
 ```
